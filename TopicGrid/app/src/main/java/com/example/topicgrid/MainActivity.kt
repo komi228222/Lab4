@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.topicgrid.data.DataSource
 import com.example.topicgrid.model.Topic
 import com.example.topicgrid.ui.theme.TopicGridTheme
+import androidx.compose.foundation.layout.width
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,30 +66,33 @@ fun TopicGrid(topics: List<Topic>, modifier: Modifier = Modifier) {
 
 @Composable
 fun TopicCard(topic: Topic, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
+    Card(
+        modifier = modifier.height(68.dp)                 // ← высота ровно 68dp
+    ) {
         Row {
             Image(
                 painter = painterResource(topic.imageResourceId),
                 contentDescription = null,
-                modifier = Modifier.size(68.dp),
+                modifier = Modifier
+                    .width(68.dp)
+                    .fillMaxHeight(),
                 contentScale = ContentScale.Crop
             )
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = stringResource(topic.stringResourceId),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = null,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(14.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
